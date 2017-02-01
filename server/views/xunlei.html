@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>迅雷更新</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<script src="/jquery/jquery.1.9.0.js" type="text/javascript"></script>
+	<script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<style>
+		table#info td{
+			vertical-align: middle;
+		}
+	</style>
+</head>
+<body>
+	<div class="navbar">
+	  <a class="navbar-brand" href="#">更新</a>
+	  <ul class="nav navbar-nav">
+	    <li class="active"><a href="#">迅雷</a></li>
+	  </ul>
+	</div>
+
+	<div class="container">
+		<table class="table" id="info">
+			<thead>
+				<th>用户名</th>
+				<th>密码</th>
+				<th>是否过期</th>
+				<th>更新</th>
+			</thead>
+			<%
+				data.forEach(function(account){
+			%>
+				<tr>
+					<td><%= account.username %></td>
+					<td><%= account.password %></td>
+					<td><%= account.expire %></td>
+					<td>
+						<a  data-username="<%= account.username %>" href="#" class="update btn btn-danger" data-html="true" data-trigger="click"  data-title="更新" value="<%= account.username %>" data-placement="left" data-toggle="popover" >手动更新</a>
+					</td>
+				</tr>
+			<%				
+				});
+			%>
+		</table>
+		<%
+			if(typeof msg != 'undefined'){
+				if(msg == 'success'){
+		%>
+					<div class="alert alert-success">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  <strong>提示</strong> 更新成功。
+					</div>
+
+		<%
+				}
+		%>
+		<%
+				if(msg == 'fail'){
+		%>
+					<div class="alert alert-danger">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  <strong>警告</strong> 更新失败了。
+					</div>
+		<%
+				}
+			}
+		%>
+	</div>
+	<script>
+		$(document).ready(function(){
+			$(".update").each(function(key,val){
+				$(this).popover({
+					'content':'<form action="/xunlei/config" method="post"><fieldset><input class="form-control" id="focusedInput" type="text" placeholder="只用填入sessionid即可" name="sessionid"> <input type="hidden" name="username" value=\''+ $(this).attr('data-username') +'\'> <br/> <button type="submit" class="form-control pull-right btn btn-success">提交更新</button></fieldset></form>'
+				})
+			});
+		});
+	</script>
+</body>
+</html>

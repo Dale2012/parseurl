@@ -1,0 +1,13 @@
+{
+  "name": "joyplus",
+  "description":"joyplus",
+  "version":"0.2.0",
+  "dependencies":{
+    "express": "3.x",
+    "needle": "0.5.2",
+    "format": "0.2.0",
+    "bufferpack":"0.0.6",
+    "jade":"0.34.1",
+    "ejs":"0.8.4"
+  }
+}
